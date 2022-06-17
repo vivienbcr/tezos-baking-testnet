@@ -1,0 +1,69 @@
+version: '3'
+networks:
+
+  signer:
+    name: inter
+    driver: bridge
+    internal: true
+    driver_opts:
+      com.docker.network.bridge.name: dockerinter
+services:
+  tezos-node:
+    hostname: node
+    image: tezos/tezos:v13.0
+    restart: always
+    entrypoint: [ "/bin/sh", "/mnt/node-start.sh" ]
+    ports:
+      - "9732:9732"
+      - "8732:8732"
+    volumes:
+      - ./scripts:/mnt
+      - ./data/.tezos-node:/home/tezos/.tezos-node
+    environment:
+      - NET_ADDR=0.0.0.0
+      - P2P_PORT=9732
+      - RPC_PORT=8732
+      - USE_SNAPSHOT=false
+      - SNAPSHOT_URL=Notavailableyetforjakarta
+      - TEZOS_HOME_CONFIG=/home/tezos/.tezos-node
+      - ID_FILE=/home/tezos/.tezos-node/identity.json
+      - FILE=/mnt/snapshot.rolling
+  tezos-signer:
+    hostname: signer
+    image: tezos/tezos:v13.0
+    restart: always
+    volumes:
+      - ./scripts:/mnt
+    depends_on:
+      - tezos-node
+    entrypoint: [ "/bin/sh", "/mnt/signer-start.sh" ]
+    environment:
+      - SIGNER_PORT=7000
+      - BAKER_SECRET_KEY=unencrypted:PUT_YOUR_FAUCET_PRIVATE_KEY_HERE
+  tezos-baker:
+    hostname: baker
+    image: tezos/tezos:v13.0
+    entrypoint: [ "/bin/sh", "/mnt/baker-start.sh" ]
+    volumes:
+      - ./scripts:/mnt
+      - ./data/.tezos-node:/home/tezos/.tezos-node
+    restart: always
+    environment:
+      - SIGNER_PORT=7000
+      - NODE_PORT=8732
+    depends_on:
+      - tezos-node
+      - tezos-signer
+  tezos-accuser:
+    hostname: accuser
+    image: tezos/tezos:v13.0
+    entrypoint: [ "/bin/sh", "/mnt/accuser-start.sh" ]
+    volumes:
+      - ./scripts:/mnt
+    restart: always
+    environment:
+      - SIGNER_PORT=7000
+      - NODE_PORT=8732
+    depends_on:
+      - tezos-node
+      - tezos-signer
