@@ -1,6 +1,6 @@
 # Testnet baker setup
 
-## Don't use this setup in production (unsecure key setup)
+## Don't use this setup in production or on mainnet (unsecure key setup)
 ## Requirements (tested on Ubuntu 20.04LTS)
 
 - [Docker engine](https://docs.docker.com/engine/install/)
