@@ -16,7 +16,6 @@ services:
       - P2P_PORT=9732
       - RPC_PORT=8732
       - USE_SNAPSHOT=false
-      - SNAPSHOT_URL=https://snapshots-tezos.giganode.io/snapshots/testnet_20220209-000451_BMdEZfpstrWfHJ2ycxq2VWQXC3p3aLERGuRpXpGtdzuGUyngaco.rolling
       - TEZOS_HOME_CONFIG=/home/tezos/.tezos-node
       - ID_FILE=/home/tezos/.tezos-node/identity.json
       - FILE=/mnt/snapshot.rolling
@@ -31,7 +30,7 @@ services:
     entrypoint: [ "/bin/sh", "/mnt/signer-start.sh" ]
     environment:
       - SIGNER_PORT=7000
-      - BAKER_SECRET_KEY=unencrypted:${BAKER_SECRET_KEY}
+      - BAKER_SECRET_KEY=${BAKER_SECRET_KEY}
   tezos-baker:
     hostname: baker
     image: tezos/tezos:v13.0
