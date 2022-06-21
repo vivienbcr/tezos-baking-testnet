@@ -38,7 +38,7 @@ services:
     entrypoint: [ "/bin/sh", "/mnt/baker-start.sh" ]
     volumes:
       - ./scripts:/mnt
-      - ./data/.tezos-node:/home/tezos/.tezos-node
+      - ${NODE_STORAGE_PATH}:/home/tezos/.tezos-node
     restart: always
     environment:
       - PKH=${BAKER_PUB_KEY_HASH}
