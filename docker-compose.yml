@@ -1,12 +1,4 @@
 version: '3'
-networks:
-
-  signer:
-    name: inter
-    driver: bridge
-    internal: true
-    driver_opts:
-      com.docker.network.bridge.name: dockerinter
 services:
   tezos-node:
     hostname: node
@@ -24,7 +16,7 @@ services:
       - P2P_PORT=9732
       - RPC_PORT=8732
       - USE_SNAPSHOT=false
-      - SNAPSHOT_URL=Notavailableyetforjakarta
+      - SNAPSHOT_URL=https://snapshots-tezos.giganode.io/snapshots/testnet_20220209-000451_BMdEZfpstrWfHJ2ycxq2VWQXC3p3aLERGuRpXpGtdzuGUyngaco.rolling
       - TEZOS_HOME_CONFIG=/home/tezos/.tezos-node
       - ID_FILE=/home/tezos/.tezos-node/identity.json
       - FILE=/mnt/snapshot.rolling
