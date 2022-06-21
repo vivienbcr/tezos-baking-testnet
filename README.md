@@ -3,7 +3,8 @@
 ## Don't use this setup in production (unsecure key setup)
 ## Requirements (tested on Ubuntu 20.04LTS)
 
-- Docker-compose
+- [Docker engine](https://docs.docker.com/engine/install/)
+- [Docker-compose](https://docs.docker.com/compose/install/)
 - 50 / 60 GB free disk space
 ## Get faucet account
 
@@ -24,6 +25,7 @@ chmod +x activate-account.sh
 
 Inside newly created `.env` file you can find your faucet account information.
 Edit `.env` file NODE_STORAGE to change storage blockchain storage path (use absolute path).
+
 ## Run Baking stack
 
 Run docker-compose : 
@@ -31,4 +33,4 @@ Run docker-compose :
 docker-compose up -d
 ```
 
-Node will download and sync tezos testnet (it take 4/5 hours depending your computer).
+Node will download and sync tezos testnet (it take 4/5 hours depending your computer). And start baking blocks in some days (4 days).
