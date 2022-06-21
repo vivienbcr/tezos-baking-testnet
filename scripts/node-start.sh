@@ -8,19 +8,8 @@ if [ ! -f "$ID_FILE" ] ; then
     rm -f $TEZOS_HOME_CONFIG/config.json
     tezos-node config init --data-dir=$TEZOS_HOME_CONFIG --history-mode rolling --network=jakartanet --net-addr=0.0.0.0:$P2P_PORT --rpc-addr=0.0.0.0:$RPC_PORT --allow-all-rpc=0.0.0.0:$RPC_PORT
     echo "Get snapshot for testnet"
-    if [ $USE_SNAPSHOT = "true"]
-    then
-        echo "Snapshot unavailable for jakartanet"
-        # if test -f "$FILE" ; then
-        #     echo "Snapshot $FILE aleady download"
-        # else
-        #     wget $SNAPSHOT_URL -O $FILE
-        #     # Redo permissions to be able to delete file from outside of container
-        # fi
-        # echo "Init tezos-node for testnet & import snapshot"
-        # # tezos-node config init --network=hangzhounet
-        # sudo chmod -R 777 /mnt 
-        # tezos-node snapshot import $FILE
+    if [ $USE_SNAPSHOT = "true"]; then
+        echo "TODO: Snapshot unavailable yet for jakartanet"
     fi
 fi
 echo "Run tezos node"
