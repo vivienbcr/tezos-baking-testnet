@@ -10,7 +10,7 @@ services:
       - "8732:8732"
     volumes:
       - ./scripts:/mnt
-      - ${NODE_STORAGE_PATH}:/home/tezos/.tezos-node
+      - ${NODE_STORAGE_PATH}/.tezos-node:/home/tezos/.tezos-node
     environment:
       - NET_ADDR=0.0.0.0
       - P2P_PORT=9732
@@ -37,7 +37,8 @@ services:
     entrypoint: [ "/bin/sh", "/mnt/baker-start.sh" ]
     volumes:
       - ./scripts:/mnt
-      - ${NODE_STORAGE_PATH}:/home/tezos/.tezos-node
+      - ${NODE_STORAGE_PATH}/.tezos-node:/home/tezos/.tezos-node
+      - ${NODE_STORAGE_PATH}/.tezos-client:/home/tezos/.tezos-client
     restart: always
     environment:
       - PKH=${BAKER_PUB_KEY_HASH}
