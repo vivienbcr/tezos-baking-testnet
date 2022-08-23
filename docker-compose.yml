@@ -2,7 +2,7 @@ version: '3'
 services:
   tezos-node:
     hostname: node
-    image: tezos/tezos:v13.0
+    image: tezos/tezos:v14.0
     restart: always
     entrypoint: [ "/bin/sh", "/mnt/node-start.sh" ]
     ports:
@@ -19,9 +19,10 @@ services:
       - TEZOS_HOME_CONFIG=/home/tezos/.tezos-node
       - ID_FILE=/home/tezos/.tezos-node/identity.json
       - FILE=/mnt/snapshot.rolling
+      - USE_SNAPSHOT=${USE_SNAPSHOT}
   tezos-signer:
     hostname: signer
-    image: tezos/tezos:v13.0
+    image: tezos/tezos:v14.0
     restart: always
     volumes:
       - ./scripts:/mnt
@@ -33,7 +34,7 @@ services:
       - BAKER_SECRET_KEY=${BAKER_SECRET_KEY}
   tezos-baker:
     hostname: baker
-    image: tezos/tezos:v13.0
+    image: tezos/tezos:v14.0
     entrypoint: [ "/bin/sh", "/mnt/baker-start.sh" ]
     volumes:
       - ./scripts:/mnt
@@ -49,7 +50,7 @@ services:
       - tezos-signer
   tezos-accuser:
     hostname: accuser
-    image: tezos/tezos:v13.0
+    image: tezos/tezos:v14.0
     entrypoint: [ "/bin/sh", "/mnt/accuser-start.sh" ]
     volumes:
       - ./scripts:/mnt
