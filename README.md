@@ -1,4 +1,4 @@
-# Testnet baker setup
+# Tezos Testnet Ghostnet baker setup
 
 ## Don't use this setup in production or on mainnet (unsecure key setup)
 ## Requirements (tested on Ubuntu 20.04LTS)
@@ -34,3 +34,7 @@ docker-compose up -d
 ```
 
 Node will download and sync tezos testnet (it take 4/5 hours depending your computer). And start baking blocks in some days (4 days).
+
+## Monitoring
+
+Pyrometer interface available at http://localhost:20000

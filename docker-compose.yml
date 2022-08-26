@@ -2,7 +2,7 @@ version: '3'
 services:
   tezos-node:
     hostname: node
-    image: tezos/tezos:v14.0
+    image: tezos/tezos:v13.0
     restart: always
     entrypoint: [ "/bin/sh", "/mnt/node-start.sh" ]
     ports:
@@ -22,7 +22,7 @@ services:
       - USE_SNAPSHOT=${USE_SNAPSHOT}
   tezos-signer:
     hostname: signer
-    image: tezos/tezos:v14.0
+    image: tezos/tezos:v13.0
     restart: always
     volumes:
       - ./scripts:/mnt
@@ -34,13 +34,13 @@ services:
       - BAKER_SECRET_KEY=${BAKER_SECRET_KEY}
   tezos-baker:
     hostname: baker
-    image: tezos/tezos:v14.0
+    image: tezos/tezos:v13.0
     entrypoint: [ "/bin/sh", "/mnt/baker-start.sh" ]
     volumes:
       - ./scripts:/mnt
       - ${NODE_STORAGE_PATH}/.tezos-node:/home/tezos/.tezos-node
       - ${NODE_STORAGE_PATH}/.tezos-client:/home/tezos/.tezos-client
-    restart: always
+    restart: on-failure
     environment:
       - PKH=${BAKER_PUB_KEY_HASH}
       - SIGNER_URL=signer:7000
@@ -50,7 +50,7 @@ services:
       - tezos-signer
   tezos-accuser:
     hostname: accuser
-    image: tezos/tezos:v14.0
+    image: tezos/tezos:v13.0
     entrypoint: [ "/bin/sh", "/mnt/accuser-start.sh" ]
     volumes:
       - ./scripts:/mnt
@@ -62,3 +62,12 @@ services:
     depends_on:
       - tezos-node
       - tezos-signer
+  pyrometer:
+    hostname: pyrometer
+    image: registry.gitlab.com/tezos-kiln/pyrometer
+    restart: always
+    volumes:
+      - ./pyrometer.toml:/home/node/.config/pyrometer/pyrometer.toml
+    command: run
+    ports:
+      - "20000:2020"

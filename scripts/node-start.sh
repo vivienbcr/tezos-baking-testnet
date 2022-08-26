@@ -1,7 +1,7 @@
 #!/bin/bash
-echo "Take ownership of mounted path (dev purpose 777)"
-sudo chmod -R 777 /mnt
-sudo chmod -R 777 $TEZOS_HOME_CONFIG
+echo "Take ownership of mounted path ( user : tezos:100)"
+sudo chown -R 100 /mnt
+sudo chown -R 100 $TEZOS_HOME_CONFIG
 echo $TEZOS_HOME_CONFIG
 if [ ! -f "$ID_FILE" ] ; then
     echo "Identity File not found :  Init configuration..."

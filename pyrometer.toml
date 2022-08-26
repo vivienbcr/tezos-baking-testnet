@@ -1,0 +1,23 @@
+exclude = [
+  "baked",
+  "endorsed",
+]
+
+[baker_monitor]
+bakers = ["tz1SZGDk4wxnNPQg9P2Xj9eacwrPskvSquWR"]
+max_catchup_blocks = 120
+rpc = "https://rpc.ghostnet.teztnets.xyz/"
+
+[node_monitor]
+nodes = ["http://node:8732"]
+teztnets = false
+
+[log]
+level = "debug"
+
+[ui]
+enabled = true
+port = 2020
+host = "0.0.0.0"
+explorer_url = "https://ghost.tzstats.com"
+show_system_info = true
